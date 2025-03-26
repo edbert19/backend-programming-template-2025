@@ -1,7 +1,7 @@
 const { Users } = require('../../../models');
 
-async function getUsers() {
-  return Users.find({});
+async function getUserwithParam(offset = 0, limit = 10) {
+  return Users.find({}).skip(offset).limit(limit);
 }
 
 async function getUser(id) {
@@ -29,7 +29,7 @@ async function deleteUser(id) {
 }
 
 module.exports = {
-  getUsers,
+  getUserwithParam,
   getUser,
   getUserByEmail,
   createUser,

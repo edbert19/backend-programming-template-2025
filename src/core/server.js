@@ -6,6 +6,7 @@ const pinoHTTP = require('pino-http');
 const config = require('./config');
 const logger = require('./logger')('app');
 const routes = require('../api/routes');
+const authenticationRoute = require('../api/components/authentication/authentication-route');
 const { errorResponder, errorTypes } = require('./errors');
 
 const app = express();

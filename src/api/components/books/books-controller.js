@@ -11,6 +11,26 @@ async function getBooks(request, response, next) {
   }
 }
 
+async function getBookwithParam(request, response, next) {
+  try {
+    const offset = parseInt(request.query.offset) || 0;
+    const limit = parseInt(request.query.limit) || 10;
+
+    if (offset < 0 || limit <= 0) {
+      throw errorResponder(
+        errorTypes.VALIDATION_ERROR,
+        'Offset must be >= 0 and limit must be > 0'
+      );
+    }
+
+    const books = await booksService.getBooks(offset, limit);
+
+    return response.status(200).json(books);
+  } catch (error) {
+    return next(error);
+  }
+}
+
 async function createBook(request, response, next) {
   try {
     const { title } = request.body;
@@ -29,5 +49,6 @@ async function createBook(request, response, next) {
 
 module.exports = {
   getBooks,
+  getBookwithParam,
   createBook,
 };
